@@ -55,7 +55,7 @@ with tab1:
     st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
-    depto_civil = st.radio("Selecione o departamento civil:", doi)
+    depto_civil = st.radio("Selecione o departamento civil:", doi, horizontal=True)
     disc2_opts = get_disciplina_options(depto_civil)
     disc2 = st.selectbox("Selecione a disciplina:", disc2_opts, key="civil_disc")
     dfc2 = df[df['ofertante'] == depto_civil]
