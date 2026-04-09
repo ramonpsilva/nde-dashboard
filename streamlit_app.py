@@ -4,10 +4,10 @@ import streamlit as st
 
 @st.cache_data
 def load_data():
-    oferta = pd.read_excel('ofertaConsolidadaTratada.xlsx')
+    # oferta = pd.read_excel('ofertaConsolidadaTratada.xlsx')
+    oferta = pd.read_excel('ofertaConsolidada20261.xlsx')
     semestres = oferta['semestre'].unique()
-    departamentos = oferta.sort_values(by='ofertante')['ofertante'].unique()
-    departamentos.sort()
+    departamentos = sorted(oferta.sort_values(by='ofertante')['ofertante'].unique())
     oferta['disciplina'] = oferta.apply(lambda row: row.codigo + ": " + row.nome, axis=1)
     disciplinas = pd.DataFrame(oferta.drop(columns=['curso', 'professor', 'ch_prof', 'horario', 'insc']))
     disciplinas.reset_index(inplace=True, drop=True)
@@ -28,10 +28,12 @@ def load_data():
                 d = disciplina_depto.loc[disciplina_depto['codigo'] == cod]['disciplina'].unique().tolist()[0]
                 df.loc[len(df.index)] = [sem, d, cur, somavagas, somaocupa, somaturmas]
     df.sort_values(by='semestre', inplace=True)
-    return oferta, semestres, departamentos, disciplinas, doi, df
+    return semestres, departamentos, disciplinas, doi, df
+    # return oferta, semestres, departamentos, disciplinas, doi, df
 
 # Load data ONCE (cached)
-oferta, semestres, departamentos, disciplinas, doi, df = load_data()
+# oferta, semestres, departamentos, disciplinas, doi, df = load_data()
+semestres, departamentos, disciplinas, doi, df = load_data()
 
 def get_disciplina_options(depto):
     return disciplinas[disciplinas['ofertante'] == depto]['disciplina'].unique().tolist()
