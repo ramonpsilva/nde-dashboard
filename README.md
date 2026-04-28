@@ -15,5 +15,5 @@ A simple Streamlit app showing NDE data.
 2. Run the app
 
    ```
-   $ streamlit run nde_streamlit.py
+   $ streamlit run streamlit_app.py
    ```
